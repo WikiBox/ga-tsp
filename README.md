@@ -20,6 +20,11 @@ Run the compiled executable like this:
 ## GA stuff implemented
 This GA is implements parent and child populations, elitism, selection pressure, PMX crossovers, mutations, solution evaluation, fixed alphabet, fixed length integer sequence solutions.
 
+## TSP
+The Traveling Salesman Problem is the problem of finding the shortest route visiting a number of cities and returning to the starting point. As the number of cities increase the number of possible routes formly explodes. And it quickly becomes impossible to directly search for the shortest route.
+
+One way to search efficently is by using a GA.
+
 ### Abstract base class problem
 The GA takes a pointer to a abstract base class problem. TSP is a specialization of the abstract problem base class. It is possible to create other specializations of problem for other types of problems and that way reuse the most of the other code unchanged.
 
