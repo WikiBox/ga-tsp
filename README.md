@@ -11,27 +11,27 @@ Then, in a folder, holding all the cpp-files, compile like this:
 ```
 g++ *.cpp -o ga-tsp -O2
 ```
-Or create a makefile if you wish. There is not much code, so not a lot to gain in compilations speed. 
+Or create a makefile if you wish. There isn't a lot of code, so not a whole lot can be gained in compilations speed from using make. 
 
-Run the executable like this:
+Run the compiled executable like this:
 ```
 ./ga-tsp
 ```
 ## GA stuff implemented
-This GA is implements parent and child populations, elitism, selection pressure, PMX crossovers, mutations, solution evaluation, integer sequence solutions.
+This GA is implements parent and child populations, elitism, selection pressure, PMX crossovers, mutations, solution evaluation, fixed alphabet, fixed length integer sequence solutions.
 
 ### Abstract base class problem
-The GA takes a pointer to a abstract base class problem. TSP is a problem. It is possible to create other specializations of problem for other types of problems and reuse the other code unchanged.
+The GA takes a pointer to a abstract base class problem. TSP is a specialization of the abstract problem base class. It is possible to create other specializations of problem for other types of problems and that way reuse the most of the other code unchanged.
 
-A problem class specialisation must provide the following member methods:
+A problem class specialization must implement the following member methods:
 
 #### Encode
-Create a valid random solution.
+Creates a valid random solution. This is used to create the initial random population.
 ##### Mutate
-Introduce a small scramble of a solution that results in another valid, slightly changed solution or possibly (re-)introduce missing "genetic material".
+Introduces a small scramble of a solution that results in another valid, slightly changed solution or possibly (re-)introduce missing "genetic material". This may help prevent ending up in a local minimum in the search volume.
 #### Crossover
-Recombine two parent solutions to create two new valid child solutions, based on the parents. PMX (Partially Mixed Crossover) is used. That is a crossover method that allows two solutions to be recombined without disturbing the existing partial sequences too much. Good for fixed "alphabet" solutions consisting of integer sequences.
+Recombines two parent solutions to create two new valid child solutions, based on the parent solution sequences. A optimized version of PMX (Partially Mixed Crossover) is used. PMX is a crossover method that allows two solutions to be recombined without disturbing the existing partial sequences too much. Nice for fixed length, fixed alphabet solutions.
 #### Evaluate
-Calculate fitness/cost for a solution. Elitism and selection pressure ensures that the best solutions are used more often when generating child solutions for the next generation. 
+Calculates the fitness/cost for a solution. Makes it possible to compare solutions. Elitism (making the best solution s "immortal") and selection pressure (creating a bias in selecting solutions for crossovers) ensures that the best solutions are used more often when generating child solutions for the next generation. And that makes it more likely that child solutions better than the parent solutions are created.
 
 More description to follow...
