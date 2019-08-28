@@ -1,7 +1,51 @@
 # ga-tsp
 This is old code. Most is from 2004-2007. 
 
-This program was originally created to showcase the PMX crossover implementation. 
+This program was originally created to showcase the PMX crossover implementation:
+
+
+```
+void Tsp::crossover(const Sol &a, const Sol &b, Sol &c, Sol &d) {
+   assert(a.size() == b.size());
+
+   const int n = a.size();
+
+   // static to avoid realloc every call
+   static std::vector<int> lookup_c;
+   static std::vector<int> lookup_d;
+
+   lookup_c.resize(n);
+   lookup_d.resize(n);
+   c.resize(n);
+   d.resize(n);
+
+   // Create lookup tables and initialize c and d
+   for(int i = 0; i != n; i++) {
+      c[i] = a[i];
+      lookup_c[c[i]] = i;
+
+      d[i] = b[i];
+      lookup_d[d[i]] = i;
+   }
+
+   // Crossover random sequence of at least n / 4 and at most 3/4 * n cities
+   const int start = irand(n);
+   const int end = start + (n / 4) + irand(n / 2);
+
+   // Do the PMX
+   for(int i = start; i != end; i++) {
+      const int j = i % n; // i mod n
+
+      const int posb = lookup_c[b[j]];
+      std::swap(c[posb], c[j]);
+      lookup_c[c[posb]] = posb;
+
+      const int posa = lookup_d[a[j]];
+      std::swap(d[posa], d[j]);
+      lookup_d[d[posa]] = posa;
+   }
+}
+```
 
 ## Compile
 Compile on Ubuntu/Debian:
