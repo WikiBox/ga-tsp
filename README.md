@@ -1,6 +1,8 @@
 # ga-tsp
 This is old code. Most is from 2004-2007. 
 
+This program was originally created to showcase the PMX crossover implementation. 
+
 ## Compile
 Compile on Ubuntu/Debian:
 Make sure build-essential is installed:
